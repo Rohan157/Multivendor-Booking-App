@@ -22,6 +22,8 @@ mongoose
 //cors is used to run frontend and backend simultaneously otherwise their linking can cause error
 app.use(cors());
 app.use(morgan("dev"));
+//to see console logs having json data such as res.body in registeration
+app.use(express.json());
 //route middleware
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
