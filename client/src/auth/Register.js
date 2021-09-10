@@ -2,6 +2,7 @@ import { useState } from "react";
 import RegisterForm from "../components/RegisterForm";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { register } from "../actions/auth";
 
 //Here history keeps the history of path and we are using it so it can redirect us to login page
 const Register = ({ history }) => {
@@ -12,7 +13,7 @@ const Register = ({ history }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API}/register`, {
+      const res = await register({
         name,
         email,
         password,

@@ -49,4 +49,17 @@ userSchema.pre("save", function (next) {
   }
 });
 
+//this is for login. Here we will compare the incoming hashed pw to pw in db
+userSchema.methods.comparePassword = function (password, next) {
+  bcrypt.compare(password, this.password, function (err, match) {
+    if (err) {
+      console.log("COMPARE PASSWORD ERR", err);
+      return next(err, false);
+    }
+    //if no error we get null
+    console.log("MATCH PASSWORD", match);
+    return next(null, match);
+  });
+};
+
 export default mongoose.model("User", userSchema);
