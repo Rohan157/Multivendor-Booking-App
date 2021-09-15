@@ -1,6 +1,5 @@
 import { useState } from "react";
 import RegisterForm from "../components/RegisterForm";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { register } from "../actions/auth";
 
