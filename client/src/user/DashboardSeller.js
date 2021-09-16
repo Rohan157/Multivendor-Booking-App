@@ -18,6 +18,8 @@ const DashboardSeller = () => {
     try {
       let res = await createConnectAccount(auth.token);
       console.log(res);
+      //the below line will get the response from backend which is a link
+      //then the href property will redirect us to the link got in response data
       window.location.href = res.data;
     } catch (err) {
       console.log(err);
