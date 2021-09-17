@@ -5,11 +5,22 @@ import { useSelector } from "react-redux";
 import { HomeOutlined } from "@ant-design/icons";
 import { createConnectAccount } from "../actions/stripe";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { sellerHotels } from "../actions/hotel";
+import SmallCard from "../components/cards/SmallCard";
 
 const DashboardSeller = () => {
+  const [hotels, setHotels] = useState([]);
   const { auth } = useSelector((state) => ({ ...state }));
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadSellersHotels();
+  }, []);
+  const loadSellersHotels = async () => {
+    let { data } = await sellerHotels(auth.token);
+    setHotels(data);
+  };
 
   //here on click we are sending auth.token to our createConnectAccount action
   //which will then send response with token to a URL in our backend
@@ -39,6 +50,11 @@ const DashboardSeller = () => {
             + Add New
           </Link>
         </div>
+      </div>
+      <div className="row">
+        {hotels.map((h) => (
+          <SmallCard k={h._id} h={h} showViewMoreButton={false} owner={true} />
+        ))}
       </div>
     </div>
   );

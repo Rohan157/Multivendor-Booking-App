@@ -8,7 +8,7 @@ const router = express.Router();
 import { requireSignin } from "../middlewares";
 
 //COntrollers
-import { create, hotels, image } from "../controllers/hotel";
+import { create, hotels, image, sellerHotels } from "../controllers/hotel";
 
 //Formidable here is necessary for the purpose of conversion of Form data
 router.post("/create-hotel", requireSignin, formidable(), create);
@@ -16,5 +16,7 @@ router.post("/create-hotel", requireSignin, formidable(), create);
 router.get("/hotels", hotels);
 //to get img
 router.get("/hotel/image/:hotelId", image);
+//all hotels of a specific user
+router.get("/seller-hotels", requireSignin, sellerHotels);
 
 module.exports = router;

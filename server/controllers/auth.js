@@ -6,19 +6,20 @@ import jwt from "jsonwebtoken";
 // };
 
 export const register = async (req, res) => {
-  //firstly you should check whether you are recieving data in backend or not
-  console.log(req.body);
-  const { name, email, password } = req.body;
-  //Validation
-  if (!name) return res.status(400).send("Name is required");
-  if (!password || password.length < 6)
-    return res.status(400).send("Min 6 character password");
-  //now for email we have to query database to verify that the email is unique and doesn't exist in db before
-  let userExist = await User.findOne({ email }).exec();
-  if (userExist) return res.status(400).send("Email is taken");
-  //If ecerything clear then now we register the user
-  const user = new User(req.body);
   try {
+    //firstly you should check whether you are recieving data in backend or not
+    console.log(req.body);
+    const { name, email, password } = req.body;
+    //Validation
+    if (!name) return res.status(400).send("Name is required");
+    if (!password || password.length < 6)
+      return res.status(400).send("Min 6 character password");
+    //now for email we have to query database to verify that the email is unique and doesn't exist in db before
+    let userExist = await User.findOne({ email }).exec();
+    if (userExist) return res.status(400).send("Email is taken");
+    //If ecerything clear then now we register the user
+    const user = new User(req.body);
+
     await user.save();
     console.log("USER CREATED", user);
     return res.json({ ok: true });
