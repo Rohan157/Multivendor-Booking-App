@@ -30,12 +30,12 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  // console.log(req.body);
-  const { email, password } = req.body;
   try {
+    // console.log(req.body);
+    const { email, password } = req.body;
     let user = await User.findOne({ email }).exec();
     // console.log("USER EXIST", user);
-    if (!user) res.status(400).send("User with that email not found");
+    if (!user) return res.status(400).send("User with that email not found");
     //compare password
     //we have access to user.comparePassword function cuz we have written it in user model
     user.comparePassword(password, (err, match) => {
