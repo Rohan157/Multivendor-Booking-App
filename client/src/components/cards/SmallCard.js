@@ -32,7 +32,7 @@ const SmallCard = ({
             <div className="card-body">
               <h3 className="card-title">
                 {h.title}
-                <span className="float-right text-primary">{h.price}</span>
+                <span className="float-right text-primary"> ${h.price}</span>
               </h3>
               <p className="alert alert-info">{h.location}</p>
               <p className="card-text">{`${h.content.substring(0, 200)}...`}</p>

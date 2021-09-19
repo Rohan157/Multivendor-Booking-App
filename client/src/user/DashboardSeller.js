@@ -6,7 +6,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { createConnectAccount } from "../actions/stripe";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { sellerHotels } from "../actions/hotel";
+import { deleteHotel, sellerHotels } from "../actions/hotel";
 import SmallCard from "../components/cards/SmallCard";
 
 const DashboardSeller = () => {
@@ -39,6 +39,14 @@ const DashboardSeller = () => {
     }
   };
 
+  const handleHotelDelete = async (hotelId) => {
+    if (!window.confirm("Are you Sure?")) return;
+    deleteHotel(auth.token, hotelId).then((res) => {
+      toast.success("Hotel Deleted");
+      loadSellersHotels();
+    });
+  };
+
   const connected = () => (
     <div className="container-fluid">
       <div className="row">
@@ -53,7 +61,13 @@ const DashboardSeller = () => {
       </div>
       <div className="row">
         {hotels.map((h) => (
-          <SmallCard k={h._id} h={h} showViewMoreButton={false} owner={true} />
+          <SmallCard
+            k={h._id}
+            h={h}
+            showViewMoreButton={false}
+            owner={true}
+            handleHotelDelete={handleHotelDelete}
+          />
         ))}
       </div>
     </div>
