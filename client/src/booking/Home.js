@@ -19,6 +19,7 @@ const Home = () => {
       <div className="container-fluid bg-secondary p-5 text-center">
         <h1>All Hotels</h1>
       </div>
+
       <div className="container-fluid">
         <br />
         {hotels.map((h) => (
